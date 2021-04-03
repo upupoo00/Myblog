@@ -55,4 +55,32 @@ public class UserInfoDao {
         }
         return result;
     }
+
+    /**
+     * 获取userinfo对象
+     * @param userInfo
+     * @return
+     * @throws SQLException
+     */
+
+    public UserInfo getUserInfo(UserInfo userInfo) throws SQLException {
+        UserInfo user = new UserInfo();
+        //非空校验
+        // TODO: 2021/4/3
+
+        Connection connection = DBUtils.getConnect();
+        String sql = "select *from userinfo where username = ?" +
+                "and password = ? and state = 1";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setString(1,userInfo.getUsername());
+        statement.setString(2,userInfo.getPassword());
+        ResultSet resultSet = statement.executeQuery();
+        if(resultSet.next()){
+            //获取并设置id
+            user.setId(resultSet.getInt("id"));
+            user.setUsername(resultSet.getString("username"));
+            user.setPassword(resultSet.getString("password"));
+        }
+        return user;
+    }
 }

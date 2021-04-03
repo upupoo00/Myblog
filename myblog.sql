@@ -27,4 +27,6 @@ create table articleinfo(
  `uid`int not null,
 );
 
+insert into articleinfo(id,title,content,uid)values(1,'一篇文章','一个test',001);
+
 

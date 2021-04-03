@@ -8,6 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -30,7 +31,16 @@ public class LoginServlet extends HttpServlet {
             userInfo.setUsername(username);
             userInfo.setPassword(password);
             try {
-                state = userInfoDao.isLogin(userInfo)?200:100;
+//                state = userInfoDao.isLogin(userInfo)?200:100;
+                userInfo = userInfoDao.getUserInfo(userInfo);
+                if(userInfo.getId()>=1){
+                    //表示登陆成功
+                    state = 200;
+                    //如果登陆成功，需要创建一个session信息
+                    HttpSession session = request.getSession();
+                    //将当前登录信息放在session中
+                    session.setAttribute("userinfo",userInfo);
+                }
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }

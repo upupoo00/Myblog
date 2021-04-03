@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>我的文章列表页</title>
+    <script src="jquery-1.9.1.min.js"></script>
+    <script>
+        jQuery(function () {
+            // 等页面加载完成之后再执行
+
+            jQuery.getJSON("myartlist", {}, function (data) {
+                if (data != null && data.state==200){
+
+                    if (data.list != null &&
+                        data.list.length > 0) {
+                        // table 数据初始化
+                        jQuery("#tab").html("<tr>\n" +
+                            "    <td>\n" +
+                            "        编号\n" +
+                            "    </td>\n" +
+                            "    <td>\n" +
+                            "        标题\n" +
+                            "    </td>\n" +
+                            "    <td>\n" +
+                            "        创建时间\n" +
+                            "    </td>\n" +
+                            "    <td>\n" +
+                            "        阅读量\n" +
+                            "    </td>\n" +
+                            "    <td>\n" +
+                            "        操作\n" +
+                            "    </td>\n" +
+                            "</tr>");
+                        // 数据拼接
+                        var html = "";
+                        for (var i = 0; i < data.list.length; i++) {
+                            var articleinfo = data.list[i];
+                            html += "<tr>\n" +
+                                "            <td>\n" +
+                                articleinfo.id + "\n" +
+                                "            </td>\n" +
+                                "            <td>\n" +
+                                articleinfo.title + "\n" +
+                                "            </td>\n" +
+                                "            <td>\n" +
+                                articleinfo.createtime + "                \n" +
+                                "            </td>\n" +
+                                "            <td>\n" +
+                                articleinfo.rcount + "                \n" +
+                                "            </td>\n" +
+                                "            <td>\n" +
+                                "                修改 删除\n" +
+                                "            </td>\n" +
+                                "        </tr>";
+                        }
+                        jQuery("#tab").append(html);
+                    }
+                } else {
+                    alert("抱歉：请先登录！");
+                }
+
+
+            });
+        });
+    </script>
+</head>
+<body>
+<div style="text-align: center;margin-top: 50px;">
+    <h1>我的文章列表</h1>
+    <table id="tab" style="width: 80%;margin-left: 100px;" border="1" cellspacing="0">
+        <tr>
+            <td>
+                编号
+            </td>
+            <td>
+                标题
+            </td>
+            <td>
+                创建时间
+            </td>
+            <td>
+                阅读量
+            </td>
+            <td>
+                操作
+            </td>
+        </tr>
+
+    </table>
+</div>
+
+</body>
+</html>

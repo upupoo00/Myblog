@@ -27,14 +27,15 @@
                 password.focus();
                 return false;
             }
+
             // 和后端进行通信
             jQuery.getJSON("login", {
                 "username": username.val(),
                 "password": password.val()
             }, function (data) {  // 回调函数
                 if (data != null && data.state == 200) {
-                    // todo:后面在写跳转页面
-                    alert("恭喜：登录成功");
+                    // 后面在写跳转页面
+                    location.href = "artlist.html";
                 } else {
                     alert("用户名或密码错误，请重新输入");
                 }

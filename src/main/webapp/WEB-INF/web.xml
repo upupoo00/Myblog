@@ -24,4 +24,14 @@
     <url-pattern>/login</url-pattern>
   </servlet-mapping>
 
+  <!-- 文章列表接口-->
+  <servlet>
+    <servlet-name>myartlist</servlet-name>
+    <servlet-class>service.MyArtListServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>myartlist</servlet-name>
+    <url-pattern>/myartlist</url-pattern>
+  </servlet-mapping>
+
 </web-app>
