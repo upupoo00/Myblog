@@ -42,6 +42,13 @@
                 password.focus();
                 return false;
             }
+            if(password.val().length<=6){
+                alert("你的密码太不安全了，请重试")
+                password.focus();
+                password.val("");
+                password2.val("");
+                return false;
+            }
             // 提交信息给后端
             jQuery.getJSON("reg",{
                 "username":username.val(),

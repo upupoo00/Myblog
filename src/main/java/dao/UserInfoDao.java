@@ -5,6 +5,7 @@ import utils.DBUtils;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -35,4 +36,23 @@ public class UserInfoDao {
         return result;
     }
 
+    public boolean isLogin(UserInfo userInfo) throws SQLException {
+        boolean result = false;
+        if(userInfo.getUsername() !=null &&
+        !userInfo.getUsername().equals("")&&
+        !userInfo.getPassword().equals("")&&
+        userInfo.getPassword() !=null){
+            Connection connection = DBUtils.getConnect();
+            String sql = "select *from userinfo where username = ?" +
+                    "and password = ? and state = 1";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1,userInfo.getUsername());
+            statement.setString(2,userInfo.getPassword());
+            ResultSet resultSet = statement.executeQuery();
+            if(resultSet.next()){
+                return  true;
+            }
+        }
+        return result;
+    }
 }

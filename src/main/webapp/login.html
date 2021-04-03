@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录页面</title>
+    <script src="jquery-1.9.1.min.js"></script>
+    <script>
+        function mysub(type) {
+            var username = jQuery("#username");
+            var password = jQuery("#password");
+            if (type == 2) {
+                // 清空操作
+                if (confirm("确认清空？")) {
+                    username.val("");
+                    password.val("");
+                }
+                return false;
+            }
+            // 1.非空效验
+            if (username.val().trim() == "") {
+                alert("请先输入用户名")
+                username.focus();
+                return false;
+            }
+            if (password.val().trim() == "") {
+                alert("请先输入密码")
+                password.focus();
+                return false;
+            }
+            // 和后端进行通信
+            jQuery.getJSON("login", {
+                "username": username.val(),
+                "password": password.val()
+            }, function (data) {  // 回调函数
+                if (data != null && data.state == 200) {
+                    // todo:后面在写跳转页面
+                    alert("恭喜：登录成功");
+                } else {
+                    alert("用户名或密码错误，请重新输入");
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+<div style="margin-top: 70px;text-align: center;">
+    <h1>登录页面</h1>
+    用户名：<input id="username" name="username" type="text">
+    <p></p>
+    &nbsp;密&nbsp;&nbsp;码：<input id="password" name="password" type="password">
+    <p></p>
+    <input type="button" value=" 提 交 " onclick="mysub(1)">
+    <input type="button" value=" 清 空 " onclick="mysub(2)">
+
+</div>
+</body>
+</html>
