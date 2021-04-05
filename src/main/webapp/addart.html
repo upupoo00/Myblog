@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加文章</title>
+    <script src="jquery-1.9.1.min.js"></script>
+    <script>
+        function mysub(type) {
+            var title = jQuery("#title");
+            var content = jQuery("#content");
+            if (type == 2) {
+                // 清空操作
+                if (confirm("确认是否清空？")) {
+                    title.val("");
+                    content.val("");
+                }
+                return false;
+            }
+            // 1.非空效验
+            if (title.val().trim() == "") {
+                alert("请先输入标题！");
+                title.focus();
+                return false;
+            }
+            if (content.val().trim() == "") {
+                alert("请先输入正文！");
+                content.focus();
+                return false;
+            }
+            // 2.将数据提交到后端
+            jQuery.getJSON("addart", {
+                "title": title.val(), "content": content.val()
+            }, function (data) {
+                if (data != null && data.succ == 1) {
+                    alert("添加成功！");
+                    // window.history.back()
+                    self.location=document.referrer
+                } else {
+                    alert("操作失败" + data.msg);
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+<div style="margin-left: 50px;margin-top: 20px;">
+    <h1>添加文章</h1>
+    标题：<input id="title" name="title" type="text">
+    <p></p>
+    正文：<textarea id="content" name="content"
+                 style="width: 50%;height: 300px;"></textarea>
+    <p></p>
+    <input type="button" onclick="mysub(1)" value=" 提 交 ">
+    <input type="button" onclick="mysub(2)" value=" 清 空 ">
+</div>
+</body>
+</html>

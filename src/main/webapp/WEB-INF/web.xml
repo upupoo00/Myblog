@@ -33,5 +33,31 @@
     <servlet-name>myartlist</servlet-name>
     <url-pattern>/myartlist</url-pattern>
   </servlet-mapping>
-
+   <!--文章删除接口-->
+  <servlet>
+    <servlet-name>mydel</servlet-name>
+    <servlet-class>service.MyDelServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>mydel</servlet-name>
+    <url-pattern>/mydel</url-pattern>
+  </servlet-mapping>
+   <!--    文章添加接口-->
+  <servlet>
+    <servlet-name>addart</servlet-name>
+    <servlet-class>service.AddArtServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>addart</servlet-name>
+    <url-pattern>/addart</url-pattern>
+  </servlet-mapping>
+  <!--    文章修改接口-->
+  <servlet>
+    <servlet-name>upart</servlet-name>
+    <servlet-class>service.UpArtServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>upart</servlet-name>
+    <url-pattern>/upart</url-pattern>
+  </servlet-mapping>
 </web-app>

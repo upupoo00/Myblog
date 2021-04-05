@@ -52,6 +52,7 @@ public class UserInfoDao {
             if(resultSet.next()){
                 return  true;
             }
+            DBUtils.close(connection,statement,resultSet);
         }
         return result;
     }
@@ -81,6 +82,7 @@ public class UserInfoDao {
             user.setUsername(resultSet.getString("username"));
             user.setPassword(resultSet.getString("password"));
         }
+        DBUtils.close(connection,statement,resultSet);
         return user;
     }
 }
