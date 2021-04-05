@@ -2,9 +2,79 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>修改文章</title>
+    <title>我的文章修改</title>
+    <script src="jquery-1.9.1.min.js"></script>
+    <script>
+
+        // 文章 id
+        var id = 0;
+
+
+        jQuery(function () {
+            // 1.先获取文章 id（从url获取） id=xxx
+            var thisParam = location.search.substring(1);
+            id = thisParam.split("=")[1];
+            // 2.查询数据库信息并展示
+            jQuery.getJSON("initart", {"id": id}, function (data) {
+                if (data != null && data.state == 1) {
+                    var articleinfo = data.art;
+                    jQuery("#title").val(articleinfo.title);
+                    jQuery("#content").val(articleinfo.content);
+                } else {
+                    alert("查询失败" + data.msg);
+                }
+            });
+        });
+
+        // 数据修改提交
+        function mysub(type) {
+            var title = jQuery("#title");
+            var content = jQuery("#content");
+            if (type == 2) {
+                // 清空
+                if (confirm("是否确认清空？")) {
+                    title.val("");
+                    content.val("");
+                }
+                return false;
+            }
+            // 非空效验
+            if (title.val().trim() == "") {
+                alert("请先输入标题");
+                title.focus();
+                return false;
+            }
+            if (content.val().trim() == "") {
+                alert("请先输入正文");
+                content.focus();
+                return false;
+            }
+            // 修改文正正文提交
+            jQuery.getJSON("upart", {
+                "id": id,
+                "title": title.val(),
+                "content": content.val()
+            }, function (data) {
+                if (data != null && data.succ == 1) {
+                    alert("恭喜：修改成功！");
+                    self.location=document.referrer
+                } else {
+                    alert("修改失败" + data.msg);
+                }
+            });
+        }
+    </script>
 </head>
 <body>
-
+<div style="margin-top: 40px;margin-left: 50px;">
+    <h1>文章修改</h1>
+    标题：<input id="title" name="title" type="text">
+    <p></p>
+    正文：<textarea style="width: 50%;height: 300px;" id="content" name="content">
+</textarea>
+    <p></p>
+    <input onclick="mysub(1)" value=" 提 交 " type="button">
+    <input onclick="mysub(2)" value=" 清空 " type="button">
+</div>
 </body>
 </html>

@@ -60,4 +60,14 @@
     <servlet-name>upart</servlet-name>
     <url-pattern>/upart</url-pattern>
   </servlet-mapping>
+
+  <!--    文章修改初始化接口-->
+  <servlet>
+    <servlet-name>initart</servlet-name>
+    <servlet-class>service.InitArtServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>initart</servlet-name>
+    <url-pattern>/initart</url-pattern>
+  </servlet-mapping>
 </web-app>
