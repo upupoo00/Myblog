@@ -51,22 +51,22 @@
                         for (var i = 0; i < data.list.length; i++) {
                             var articleinfo = data.list[i];
                             html += "<tr>\n" +
-                                "            <td>\n" +
+                                "<td>\n" +
                                 articleinfo.id + "\n" +
-                                "            </td>\n" +
-                                "            <td>\n" +
-                                articleinfo.title + "\n" +
-                                "            </td>\n" +
-                                "            <td>\n" +
-                                articleinfo.createtime + "                \n" +
-                                "            </td>\n" +
-                                "            <td>\n" +
-                                articleinfo.rcount + "                \n" +
-                                "            </td>\n" +
-                                "            <td>\n" +
-                                "              <a href='upart.html?id="+articleinfo.id+"'> 修改</a><a href='javascript:mydel("+articleinfo.id+");'> 删除</a>\n" +
-                                "            </td>\n" +
-                                "        </tr>";
+                                "</td>\n" +
+                                "<td>\n"+ "<a href='detail.html?id="+ articleinfo.id
+                                + "'>"+ articleinfo.title + "\n" +
+                                "</td>\n" +
+                                "<td>\n" +
+                                articleinfo.createtime + "\n" +
+                                " </td>\n" +
+                                "<td>\n" +
+                                articleinfo.rcount + "\n" +
+                                "</td>\n" +
+                                "<td>\n" +
+                                "<a href='upart.html?id="+articleinfo.id+"'> 修改</a><a href='javascript:mydel("+articleinfo.id+");'> 删除</a>\n" +
+                                "</td>\n" +
+                                "</tr>";
                         }
                         jQuery("#tab").append(html);
                     }

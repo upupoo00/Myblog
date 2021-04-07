@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>文章列表</title>
+    <script src="jquery-1.9.1.min.js"></script>
+    <script>
+        // 全局参数：当前页
+        var currpage = 1;
+
+        // 时间格式化
+        function datefm(timespan) {
+            var date = new Date(timespan);
+            // 获得年份
+            var y = date.getFullYear();
+            // 获得月份【注意+1】
+            var m = date.getMonth() + 1;
+            // 获得日期
+            var d = date.getDate();
+            return y + "-" + m + "-" + d;
+        }
+
+        jQuery(function () {
+            // 1.先正确的赋值 currpage
+            var myparams = location.search;
+            if (myparams != "") {
+                currpage = parseInt(myparams.split("=")[1]);
+            }
+
+            // 2.查询并返回数据
+            jQuery.getJSON("list", {
+                "cpage": currpage, // 当前页面
+                "psize": 2  // 每页展示的最大条数
+            }, function (data) {
+                if (data != null && data.succ == 1) {
+                    // todo:查询成功，拼接数据
+                    var html = "";
+                    for (var i = 0; i < data.list.length; i++) {
+                        // 文章对象
+                        var art = data.list[i];
+                        html += "<tr>\n" +
+                            "    <td>" + art.id + "</td>\n" +
+                            "    <td><a href='detail.html?id=" + art.id
+                            + "'>" + art.title + "</a></td>\n" +
+                            "    <td>" + datefm(art.createtime) + "</td>\n" +
+                            "    <td>" + art.rcount + "</td>\n" +
+                            "    <td>" + art.username + "</td>\n" +
+                            "</tr>";
+                    }
+                    // 拼接 html 代码到 table
+                    jQuery("#tab").append(html);
+                } else {
+                    alert("查询失败" + data.msg);
+                }
+            });
+        });
+
+        // 分页方法
+        function mypage(type) {
+            if (type == 1) {
+                // 执行上一页操作
+                if (currpage > 1) {
+                    // 正常进入上一页
+                    location.href = "list.html?c=" + (currpage - 1);
+                } else {
+                    // 已经在首页
+                    alert("当前已经是首页了！");
+                    return false;
+                }
+            } else {
+                // 执行下一页操作
+                location.href = "list.html?c=" + (currpage + 1);
+            }
+        }
+    </script>
+</head>
+<body>
+<div style="margin-top: 30px;margin-left: 100px;text-align: center;">
+    <h1>所有文章列表</h1>
+    <table border="1" id="tab" style="width: 60%;margin-left: 200px;">
+        <tr>
+            <td>编号</td>
+            <td>标题</td>
+            <td>发布时间</td>
+            <td>阅读量</td>
+            <td>作者</td>
+        </tr>
+    </table>
+    <hr>
+    <a href="javascript:mypage(1)">上一页</a> <a href="javascript:mypage(2)">下一页</a>
+</div>
+</body>
+</html>
