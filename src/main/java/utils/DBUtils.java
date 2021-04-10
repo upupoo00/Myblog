@@ -24,7 +24,7 @@ public class DBUtils {
             // 首次调用，先初始化
             dataSource = new MysqlDataSource();
             // 1.设置连接的服务器地址
-            dataSource.setURL("jdbc:mysql://127.0.0.1:3306/myblog?charactionEncoding=utf-8&useSSL=true");
+            dataSource.setURL("jdbc:mysql://127.0.0.1:3306/myblog?characterEncoding=utf-8");
             // 2.设置用户名
             dataSource.setUser("root");
             // 3.设置密码【设置成你们自己的密码】
