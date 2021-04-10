@@ -28,7 +28,7 @@ public class DBUtils {
             // 2.设置用户名
             dataSource.setUser("root");
             // 3.设置密码【设置成你们自己的密码】
-            dataSource.setPassword("000524");
+            dataSource.setPassword("12345678");
         }
         return dataSource.getConnection();
     }
